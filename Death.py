@@ -1,3 +1,4 @@
+import codecs
 import json
 
 import unidecode as unidecode
@@ -22,11 +23,11 @@ class Death:
         db.create_collection('deaths')
 
         ##Todas as colunas
-        #df = pd.read_csv('./CSV/PB_DEATHS.csv', sep=',', engine='python')
+        #df = pd.read_csv('./CSV/PB_DEATHS2.csv', sep=';', engine='python')
 
         ## Escolhendo as colunas
         columns = ['Idade', 'Sexo', 'Município de Residência', 'Data do Óbito']
-        df = pd.read_csv('./CSV/PB_DEATHS.csv', sep=',', engine='python', usecols=columns)
+        df = pd.read_csv('./CSV/PB_DEATHS.csv', sep=';', engine='python', usecols=columns)
 
         df = df.rename(columns={'Idade': 'personAge', 'Sexo': 'personGender',
                                 'Município de Residência': 'personAddressLocality',
@@ -52,6 +53,9 @@ class Death:
         df['personAddressLocality'] = df['personAddressLocality'].str.replace(u"Í", "I")
         df['personAddressLocality'] = df['personAddressLocality'].str.replace(u"Ó", "O")
         df['personAddressLocality'] = df['personAddressLocality'].str.replace(u"Ú", "U")
+
+        df['deathDate'] = pd.to_datetime(df['deathDate'], errors='coerce')
+        df['deathDate'] = df['deathDate'].dt.strftime('%Y-%m-%d')
 
         collection_currency.insert_many(json.loads(df.T.to_json()).values())
 

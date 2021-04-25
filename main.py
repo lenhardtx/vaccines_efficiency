@@ -1,3 +1,4 @@
+from Case import Case
 from Death import Death
 from Graph import Graph
 from Vaccine import Vaccine
@@ -10,6 +11,9 @@ def main():
 
     #deaths = Death()
     #deaths.load()
+
+    #cases = Case()
+    #cases.load()
 
     graphs = Graph()
     graphs.byMonth()

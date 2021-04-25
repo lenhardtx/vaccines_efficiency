@@ -29,5 +29,8 @@ class Vaccine:
 
         df["personGender"].replace({"M": "Masculino", "F": "Feminino"}, inplace=True)
 
+        df['vaccineDate'] = pd.to_datetime(df['vaccineDate'], errors='coerce')
+        df['vaccineDate'] = df['vaccineDate'].dt.strftime('%Y-%m-%d')
+
         collection_currency.insert_many(json.loads(df.T.to_json()).values())
         client.close()
