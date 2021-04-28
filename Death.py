@@ -1,6 +1,7 @@
 import codecs
 import json
 
+import requests
 import unidecode as unidecode
 from pymongo import MongoClient
 import pandas as pd
@@ -10,11 +11,13 @@ import matplotlib.pyplot as plt
 
 class Death:
 
-    def remove_accents(a):
-        return unidecode.unidecode(a.decode('utf-8'))
+    def downloadCSV(self):
+        print("Downloading CSV with Deaths of state Brazil/PB...")
+        r = requests.get('https://superset.plataformatarget.com.br/superset/explore_json/?form_data=%7B%22slice_id%22%3A1549%7D&csv=true', allow_redirects=True)
+        open('./CSV/PB_DEATHS.csv', 'wb').write(r.content)
 
     def load(self):
-
+        print("Loading CSV with Deaths of state Brazil/PB...")
         client = MongoClient('localhost', 27017)
         db = client['covidao']
         collection_currency = db['deaths']
@@ -27,7 +30,7 @@ class Death:
 
         ## Escolhendo as colunas
         columns = ['Idade', 'Sexo', 'Município de Residência', 'Data do Óbito']
-        df = pd.read_csv('./CSV/PB_DEATHS.csv', sep=';', engine='python', usecols=columns)
+        df = pd.read_csv('./CSV/PB_DEATHS.csv', sep=',', engine='python', usecols=columns)
 
         df = df.rename(columns={'Idade': 'personAge', 'Sexo': 'personGender',
                                 'Município de Residência': 'personAddressLocality',

@@ -7,14 +7,23 @@ from Vaccine import Vaccine
 
 def main():
 
-    #vaccines = Vaccine()
-    #vaccines.load()
+    downloadCSV = False
+    loadCSV = False
 
-    #deaths = Death()
-    #deaths.load()
+    vaccines = Vaccine()
+    deaths = Death()
+    cases = Case()
 
-    #cases = Case()
-    #cases.load()
+    if downloadCSV:
+        vaccines.downloadCSV()
+        deaths.downloadCSV()
+        cases.downloadCSV()
+
+    if loadCSV:
+        vaccines.load()
+        deaths.load()
+        cases.load()
+
 
     #graphs = Graph()
     #graphs.byMonth()

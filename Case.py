@@ -1,4 +1,8 @@
 import json
+import urllib
+
+import requests
+from bs4 import BeautifulSoup
 from pymongo import MongoClient
 import pandas as pd
 
@@ -6,7 +10,18 @@ import pandas as pd
 
 class Case:
 
+    def downloadCSV(self):
+        print("Downloading CSV with Cases of Brazil...")
+        html_page = urllib.request.urlopen("https://opendatasus.saude.gov.br/dataset/bd-srag-2021/resource/42bd5e0e-d61a-4359-942e-ebc83391a137")
+        soup = BeautifulSoup(html_page, "html.parser")
+        for link in soup.findAll('a'):
+            if "INFLUD" in link.get('href'):
+                r = requests.get(link.get('href'), allow_redirects=True)
+                open('./CSV/BR_CASES.csv', 'wb').write(r.content)
+                #print(link.get('href'))
+
     def load(self):
+        print("Loading CSV with Cases of state Brazil/PB...")
         client = MongoClient('localhost', 27017)
         db = client['covidao']
         collection_currency = db['cases']

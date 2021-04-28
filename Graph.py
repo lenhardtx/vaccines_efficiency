@@ -20,10 +20,8 @@ class Graph:
 
         result = collection_currency.aggregate([
             # Group the documents and "count" via $sum on the values
-            {"$group": {
-                "_id": {"$substr": ["$deathDate", 0, 7]},
-                "count": {"$sum": 1}
-            }},
+            {"$match": { status: "A" } },
+            {"$group": {"_id": {"$substr": ["$deathDate", 0, 7]}, "count": {"$sum": 1} }},
             { "$sort": {"_id": 1}}
         ])
 

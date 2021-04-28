@@ -1,0 +1,121 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="utf-8" />
+  <title>{{ title }}</title>
+  <script src="https://cdnjs.cloudflare.com/ajax/libs/Chart.js/2.4.0/Chart.bundle.js"></script>
+</head>
+
+<body>
+  <center>
+    <h1>{{ title }}</h1>
+
+    <canvas id="myChart" width="700" height="500"></canvas>
+	<script>
+	
+	Chart.defaults.global.animationSteps = 50;
+	Chart.defaults.global.tooltipYPadding = 16;
+	Chart.defaults.global.tooltipCornerRadius = 0;
+	Chart.defaults.global.tooltipTitleFontStyle = "normal";
+	Chart.defaults.global.tooltipFillColor = "rgba(0,0,0,0.8)";
+	Chart.defaults.global.animationEasing = "easeOutBounce";
+	Chart.defaults.global.responsive = false;
+	Chart.defaults.global.scaleLineColor = "black";
+	Chart.defaults.global.scaleFontSize = 16;
+	
+	var ctx = document.getElementById('myChart');
+	var myChart = new Chart(ctx, {
+		type: 'line',
+		data: {
+			labels: [
+			  {% for item in labels %}
+				"{{ item }}",
+			  {% endfor %}
+			],
+			datasets: [{
+				label: '% 1 Dose',
+				yAxisID: 'A',
+				data: [ {% for item in values[0] %}
+                   {{ item }},
+                   {% endfor %}],
+				//backgroundColor: "rgba(225,0,0,0.4)",
+				borderColor: "green",
+				borderWidth: 2
+			},
+			{
+				label: '% 2 Dose',
+				yAxisID: 'B',
+				data: [ {% for item in values[1] %}
+                   {{ item }},
+                   {% endfor %}],
+				//backgroundColor: "rgba(225,0,0,0.4)",
+				borderColor: "blue",
+				borderWidth: 2
+			},
+			{
+				label: 'Deaths',
+				yAxisID: 'C',
+				data: [ {% for item in values[2] %}
+                   {{ item }},
+                   {% endfor %}],
+				//backgroundColor: "rgba(225,0,0,0.4)",
+				borderColor: "red",
+				borderWidth: 2
+			},
+			{
+				label: 'Cases',
+				yAxisID: 'D',
+				data: [ {% for item in values[3] %}
+                   {{ item }},
+                   {% endfor %}],
+				//backgroundColor: "rgba(225,0,0,0.4)",
+				borderColor: "black",
+				borderWidth: 2
+			}]
+		},
+		options: {
+			scales: {
+			  yAxes: [{
+				id: 'A',
+				type: 'linear',
+				position: 'left',
+				ticks: {
+				  fontColor: "green",
+				  max: 100,
+				  min: 0
+				}
+			  }, {
+				id: 'B',
+				type: 'linear',
+				//position: 'left',
+				ticks: {
+				  fontColor: "blue",
+				  max: 100,
+				  min: 0
+				}
+			  }, {
+				id: 'C',
+				type: 'linear',
+				position: 'right',
+				ticks: {
+				  fontColor: "red",
+				  max: 2000,
+				  min: 0
+				}
+			  }, {
+				id: 'D',
+				type: 'linear',
+				position: 'right',
+				ticks: {
+				  fontColor: "black",
+				  max: 5000,
+				  min: 0
+				}
+			  }]
+			}
+		  }
+	});
+	</script>
+  </center>
+</body>
+</html>
