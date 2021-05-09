@@ -25,7 +25,6 @@ def main():
         deaths.load()
         cases.load()
 
-
     #graphs = Graph()
     #graphs.byMonth()
 
