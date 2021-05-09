@@ -2,7 +2,10 @@ import pandas
 import pandas as pd
 from flask import Flask, Markup, render_template
 from pymongo import MongoClient
-
+import numpy as np
+import pandas as pd
+from sklearn.linear_model import LinearRegression
+import statsmodels.api as sm
 
 class Chart:
 
@@ -84,6 +87,21 @@ class Chart:
 
         pandas.set_option('display.max_columns', 7)
         print(df_graph)
+
+        ## ML
+        X = df_graph["qt_vaccines1dose"]
+        y = df_graph["deaths"]
+
+        # é necessário adicionar uma constante a matriz X
+        X_sm = sm.add_constant(X)
+        # OLS vem de Ordinary Least Squares e o método fit irá treinar o modelo
+        results = sm.OLS(y, X_sm).fit()
+        # mostrando as estatísticas do modelo
+        results.summary()
+        # mostrando as previsões para o mesmo conjunto passado
+        results.predict(X_sm)
+
+
 
         labels = df_graph["mesAno"]
 

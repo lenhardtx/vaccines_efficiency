@@ -1,0 +1,102 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="utf-8" />
+  <title>{{ title }}</title>
+  <script src="../static/chart.min.js"> </script>
+  <style>
+  body{
+	  background-color: #666;
+	}
+
+	#barChart{
+	  background-color: wheat;
+	  border-radius: 6px;
+	/*   Check out the fancy shadow  on this one */
+	  box-shadow: 0 3rem 5rem -2rem rgba(0, 0, 0, 0.6);
+	}
+	</style>
+  
+</head>
+
+<body>
+  <center>
+    <h1>{{ title }}</h1>
+
+	<canvas id="myChart" width="400" height="400"></canvas>
+	<script>
+	
+	
+	
+	var ctx = document.getElementById('myChart').getContext('2d');
+	var myChart = new Chart(ctx, {
+		type: 'line',
+		data: {
+			labels: ["Jan", "Feb", "Mar", "Apr", "May", "Jun", "Jul", "Aug", "Sep", "Oct", "Nov", "Dec"],
+			datasets: [{
+				  label: "Stock A",
+				  fill: false,
+				  lineTension: 0.1,
+				  backgroundColor: "rgba(225,0,0,0.4)",
+				  borderColor: "red", // The main line color
+				  borderCapStyle: 'square',
+				  borderDash: [], // try [5, 15] for instance
+				  borderDashOffset: 0.0,
+				  borderJoinStyle: 'miter',
+				  pointBorderColor: "black",
+				  pointBackgroundColor: "white",
+				  pointBorderWidth: 1,
+				  pointHoverRadius: 8,
+				  pointHoverBackgroundColor: "yellow",
+				  pointHoverBorderColor: "brown",
+				  pointHoverBorderWidth: 2,
+				  pointRadius: 4,
+				  pointHitRadius: 10,
+				  // notice the gap in the data and the spanGaps: true
+				  data: [65, 59, 80, 81, 56, 55, 40, ,60,55,30,78],
+				  spanGaps: true,
+				}, {
+				  label: "Stock B",
+				  fill: true,
+				  lineTension: 0.1,
+				  backgroundColor: "rgba(167,105,0,0.4)",
+				  borderColor: "rgb(167, 105, 0)",
+				  borderCapStyle: 'butt',
+				  borderDash: [],
+				  borderDashOffset: 0.0,
+				  borderJoinStyle: 'miter',
+				  pointBorderColor: "white",
+				  pointBackgroundColor: "black",
+				  pointBorderWidth: 1,
+				  pointHoverRadius: 8,
+				  pointHoverBackgroundColor: "brown",
+				  pointHoverBorderColor: "yellow",
+				  pointHoverBorderWidth: 2,
+				  pointRadius: 4,
+				  pointHitRadius: 10,
+				  // notice the gap in the data and the spanGaps: false
+				  data: [10, 20, 60, 95, 64, 78, 90,,70,40,70,89],
+				  spanGaps: false,
+				}
+
+			  ]
+		},
+		options: {
+			scales: {
+				yAxes: [{
+					ticks: {
+						beginAtZero:true
+					},
+					scaleLabel: {
+						 display: true,
+						 labelString: 'Moola',
+						 fontSize: 20 
+					  }
+				}]            
+			} 
+		}
+	});
+	</script>
+  </center>
+</body>
+</html>

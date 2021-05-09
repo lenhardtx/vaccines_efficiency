@@ -2,13 +2,14 @@ from Case import Case
 from Chart import Chart
 from Death import Death
 from Graph import Graph
+from Predict import Predict
 from Vaccine import Vaccine
 
 
 def main():
 
-    downloadCSV = False
-    loadCSV = False
+    downloadCSV = True
+    loadCSV = True
 
     vaccines = Vaccine()
     deaths = Death()
@@ -30,6 +31,9 @@ def main():
 
     charts = Chart()
     charts.start()
+
+    #predict = Predict()
+    #predict.start()
 
 if __name__ == "__main__":
     main()

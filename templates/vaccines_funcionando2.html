@@ -1,0 +1,65 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="utf-8" />
+  <title>{{ title }}</title>
+  <script src="https://cdnjs.cloudflare.com/ajax/libs/Chart.js/2.4.0/Chart.bundle.js"></script>
+</head>
+
+<body>
+  <center>
+    <h1>{{ title }}</h1>
+
+    <canvas id="myChart" width="700" height="500"></canvas>
+	<script>
+	
+	Chart.defaults.global.animationSteps = 50;
+	Chart.defaults.global.tooltipYPadding = 16;
+	Chart.defaults.global.tooltipCornerRadius = 0;
+	Chart.defaults.global.tooltipTitleFontStyle = "normal";
+	Chart.defaults.global.tooltipFillColor = "rgba(0,0,0,0.8)";
+	Chart.defaults.global.animationEasing = "easeOutBounce";
+	Chart.defaults.global.responsive = false;
+	Chart.defaults.global.scaleLineColor = "black";
+	Chart.defaults.global.scaleFontSize = 16;
+	
+	var ctx = document.getElementById('myChart');
+	var myChart = new Chart(ctx, {
+		type: 'line',
+		data: {
+			labels: [
+			  {% for item in labels %}
+				"{{ item }}",
+			  {% endfor %}
+			],
+			datasets: [{
+				label: '% 1 Dose',
+				data: [ {% for item in values[0] %}
+                   {{ item }},
+                   {% endfor %}],
+				//backgroundColor: "rgba(225,0,0,0.4)",
+				borderColor: "green",
+				borderWidth: 4
+			},
+			{
+				label: '% 2 Dose',
+				data: [ {% for item in values[1] %}
+                   {{ item }},
+                   {% endfor %}],
+				//backgroundColor: "rgba(225,0,0,0.4)",
+				borderColor: "red",
+				borderWidth: 4
+			}]
+		},
+		options: {
+			scales: {
+				y: {
+					beginAtZero: true
+				}
+			}
+		}
+	});
+	</script>
+  </center>
+</body>
+</html>
