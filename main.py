@@ -5,11 +5,11 @@ from Graph import Graph
 from Predict import Predict
 from Vaccine import Vaccine
 
-
+#https://covid.saude.gov.br/
 def main():
 
-    downloadCSV = True
-    loadCSV = True
+    downloadCSV = False
+    loadCSV = False
 
     vaccines = Vaccine()
     deaths = Death()

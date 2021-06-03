@@ -34,13 +34,13 @@ class Vaccine:
         #df = pd.read_csv('./CSV/PB_VACCINES_TESTES.csv', sep=';', engine='python')
 
         ## Escolhendo as colunas ##
-        columns = ['paciente_idade', 'paciente_enumSexoBiologico',
-                   'paciente_endereco_nmMunicipio', 'paciente_endereco_uf', 'vacina_dataAplicacao', 'vacina_descricao_dose']
+        columns = ['paciente_idade', 'paciente_enumsexobiologico',
+                   'paciente_endereco_nmmunicipio', 'paciente_endereco_uf', 'vacina_dataaplicacao', 'vacina_descricao_dose']
         df = pd.read_csv('./CSV/PB_VACCINES.csv', sep=';', engine='python', usecols=columns)
 
-        df = df.rename(columns={'paciente_idade': 'personAge', 'paciente_enumSexoBiologico': 'personGender',
-                                'paciente_endereco_nmMunicipio' : 'personAddressLocality',
-                                'paciente_endereco_uf' : 'personAddressUF', 'vacina_dataAplicacao' : 'vaccineDate',
+        df = df.rename(columns={'paciente_idade': 'personAge', 'paciente_enumsexobiologico': 'personGender',
+                                'paciente_endereco_nmmunicipio' : 'personAddressLocality',
+                                'paciente_endereco_uf' : 'personAddressUF', 'vacina_dataaplicacao' : 'vaccineDate',
                                 'vacina_descricao_dose' : 'vaccineDose'})
 
         df['vaccineDose'] = df['vaccineDose'].str.lstrip()
